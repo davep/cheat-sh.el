@@ -86,6 +86,12 @@ empty string."
   (interactive (list (completing-read "List sheets for: " (cheat-sh-sheet-list))))
   (cheat-sh (format "%s/:list" thing)))
 
+;;;###autoload
+(defun cheat-sh-search (thing)
+  "Search for THING on cheat.sh and display the result."
+  (interactive "sSearch: ")
+  (cheat-sh (concat "~" thing)))
+
 (provide 'cheat-sh)
 
 ;;; cheat-sh.el ends here
