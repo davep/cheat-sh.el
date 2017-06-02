@@ -46,6 +46,13 @@
       (error "Can't find anything for %s on cheat.sh" thing))))
 
 ;;;###autoload
+(defun cheat-sh-region (start end)
+  "Look up the text between START and END on cheat.sh."
+  (interactive "r")
+  (deactivate-mark)
+  (cheat-sh (buffer-substring-no-properties start end)))
+
+;;;###autoload
 (defun cheat-sh-help ()
   "Get help on using cheat.sh"
   (interactive)
