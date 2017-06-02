@@ -3,7 +3,7 @@
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 1.0
-;; Keywords: docs
+;; Keywords: docs, help
 ;; URL: https://github.com/davep/cheat-sh.el
 ;; Package-Requires: ((emacs "24"))
 
