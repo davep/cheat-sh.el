@@ -53,6 +53,12 @@
   (cheat-sh (buffer-substring-no-properties start end)))
 
 ;;;###autoload
+(defun cheat-sh-maybe-region ()
+  "If region is active lookup content of region, otherwise prompt."
+  (interactive)
+  (call-interactively (if mark-active #'cheat-sh-region #'cheat-sh)))
+
+;;;###autoload
 (defun cheat-sh-help ()
   "Get help on using cheat.sh"
   (interactive)
