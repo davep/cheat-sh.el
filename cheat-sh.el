@@ -51,6 +51,12 @@
   (interactive)
   (cheat-sh ":help"))
 
+;;;###autoload
+(defun cheat-sh-list (thing)
+  "Get a list of topics available on cheat.sh"
+  (interactive "sList help for: ")
+  (cheat-sh (format "%s/:list" thing)))
+
 (provide 'cheat-sh)
 
 ;;; cheat-sh.el ends here
