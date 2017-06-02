@@ -45,6 +45,12 @@
           (princ result))
       (error "Can't find anything for %s on cheat.sh" thing))))
 
+;;;###autoload
+(defun cheat-sh-help ()
+  "Get help on using cheat.sh"
+  (interactive)
+  (cheat-sh ":help"))
+
 (provide 'cheat-sh)
 
 ;;; cheat-sh.el ends here
