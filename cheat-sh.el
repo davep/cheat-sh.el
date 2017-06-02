@@ -21,6 +21,9 @@
 (defconst cheat-sh-url "http://cheat.sh/%s?T"
   "URL for cheat.sh.")
 
+(defconst cheat-sh-user-agent "cheat-sh.el (curl)"
+  "User agent to send to cheat.sh")
+
 (defvar cheat-sh-sheet-list nil
   "List of all available sheets.")
 
@@ -32,7 +35,7 @@
       ;; HTML. See https://goo.gl/8gh95X for what I mean. (I'd have thought
       ;; it would make more sense to look for a requested content type, or
       ;; perhaps both?)
-      (let ((url-request-extra-headers '(("User-Agent" . "curl (cheat-sh.el)"))))
+      (let ((url-request-extra-headers `(("User-Agent" . ,cheat-sh-user-agent))))
         (url-retrieve-synchronously (format cheat-sh-url (url-hexify-string thing)) t t))
     (setf (point) (point-min))
     (when (search-forward-regexp "^$" nil t)
