@@ -68,8 +68,9 @@
 (defun cheat-sh-list (thing)
   "Get a list of topics available on cheat.sh.
 
-Either gets help for subject THING, or simply gets help on
-cheat.sh itself if THING is supplied as an empty string."
+Either gets a topic list for subject THING, or simply gets a list
+of all available topics on cheat.sh if THING is supplied as an
+empty string."
   (interactive "sList help for: ")
   (cheat-sh (format "%s/:list" thing)))
 
