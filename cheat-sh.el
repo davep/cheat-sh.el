@@ -21,6 +21,9 @@
 (defconst cheat-sh-url "http://cheat.sh/%s?T"
   "URL for cheat.sh.")
 
+(defvar cheat-sh-sheet-list nil
+  "List of all available sheets.")
+
 (defun cheat-sh-get (thing)
   "Get THING from cheat.sh."
   (with-current-buffer
@@ -35,10 +38,16 @@
     (when (search-forward-regexp "^$" nil t)
       (buffer-substring (point) (point-max)))))
 
+(defun cheat-sh-sheet-list ()
+  "Return the list of all available sheets."
+  (unless cheat-sh-sheet-list
+    (setq cheat-sh-sheet-list (split-string (cheat-sh-get ":list") "\n")))
+  cheat-sh-sheet-list)
+
 ;;;###autoload
 (defun cheat-sh (thing)
   "Look up THING on cheat.sh and display the result."
-  (interactive "sLookup: ")
+  (interactive (list (completing-read "Lookup: " cheat-sh-sheet-list)))
   (let ((result (cheat-sh-get thing)))
     (if result
         (with-help-window "*cheat.sh*"
@@ -71,7 +80,7 @@
 Either gets a topic list for subject THING, or simply gets a list
 of all available topics on cheat.sh if THING is supplied as an
 empty string."
-  (interactive "sList help for: ")
+  (interactive (list (completing-read "List sheets for: " cheat-sh-sheet-list)))
   (cheat-sh (format "%s/:list" thing)))
 
 (provide 'cheat-sh)
