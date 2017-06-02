@@ -50,7 +50,7 @@
 ;;;###autoload
 (defun cheat-sh (thing)
   "Look up THING on cheat.sh and display the result."
-  (interactive (list (completing-read "Lookup: " cheat-sh-sheet-list)))
+  (interactive (list (completing-read "Lookup: " (cheat-sh-sheet-list))))
   (let ((result (cheat-sh-get thing)))
     (if result
         (with-help-window "*cheat.sh*"
@@ -83,7 +83,7 @@
 Either gets a topic list for subject THING, or simply gets a list
 of all available topics on cheat.sh if THING is supplied as an
 empty string."
-  (interactive (list (completing-read "List sheets for: " cheat-sh-sheet-list)))
+  (interactive (list (completing-read "List sheets for: " (cheat-sh-sheet-list))))
   (cheat-sh (format "%s/:list" thing)))
 
 (provide 'cheat-sh)
