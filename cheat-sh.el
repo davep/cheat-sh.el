@@ -92,6 +92,13 @@ empty string."
   (interactive "sSearch: ")
   (cheat-sh (concat "~" thing)))
 
+;;;###autoload
+(defun cheat-sh-search-topic (topic thing)
+  "Search TOPIC for THING on cheat.sh and display the result."
+  (interactive (list (completing-read "Topic: " (cheat-sh-sheet-list))
+                     (read-string "Search: ")))
+  (cheat-sh-search (concat topic "/~" thing)))
+
 (provide 'cheat-sh)
 
 ;;; cheat-sh.el ends here
