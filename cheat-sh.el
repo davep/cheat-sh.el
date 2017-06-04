@@ -97,7 +97,7 @@ empty string."
   "Search TOPIC for THING on cheat.sh and display the result."
   (interactive (list (completing-read "Topic: " (cheat-sh-sheet-list))
                      (read-string "Search: ")))
-  (cheat-sh-search (concat topic "/~" thing)))
+  (cheat-sh (concat topic "/~" thing)))
 
 (provide 'cheat-sh)
 
