@@ -32,9 +32,6 @@ agent (see https://goo.gl/8gh95X for this) to decide if it should
 deliver plain text rather than HTML. cheat-sh.el requires plain
 text.")
 
-(defvar cheat-sh-sheet-list nil
-  "List of all available sheets.")
-
 (defun cheat-sh-get (thing)
   "Get THING from cheat.sh."
   (with-current-buffer
@@ -44,16 +41,23 @@ text.")
     (when (search-forward-regexp "^$" nil t)
       (buffer-substring (point) (point-max)))))
 
-(defun cheat-sh-sheet-list ()
-  "Return the list of all available sheets."
-  (unless cheat-sh-sheet-list
-    (setq cheat-sh-sheet-list (split-string (cheat-sh-get ":list") "\n")))
-  cheat-sh-sheet-list)
+(defvar cheat-sh-sheet-list nil
+  "List of all available sheets.")
+
+(defun cheat-sh-read (prompt)
+  "Read input from the user, showing PROMPT to prompt them.
+
+This function is used by some `interactive' functions in
+cheat-sh.el to get the item to look up. It provides completion
+based of the sheets that are available on cheat.sh."
+  (completing-read prompt
+                   (or cheat-sh-sheet-list
+                       (setq cheat-sh-sheet-list (split-string (cheat-sh-get ":list") "\n")))))
 
 ;;;###autoload
 (defun cheat-sh (thing)
   "Look up THING on cheat.sh and display the result."
-  (interactive (list (completing-read "Lookup: " (cheat-sh-sheet-list))))
+  (interactive (list (cheat-sh-read "Lookup: ")))
   (let ((result (cheat-sh-get thing)))
     (if result
         (with-help-window "*cheat.sh*"
@@ -86,7 +90,7 @@ text.")
 Either gets a topic list for subject THING, or simply gets a list
 of all available topics on cheat.sh if THING is supplied as an
 empty string."
-  (interactive (list (completing-read "List sheets for: " (cheat-sh-sheet-list))))
+  (interactive (list (cheat-sh-read "List sheets for: ")))
   (cheat-sh (format "%s/:list" thing)))
 
 ;;;###autoload
@@ -99,7 +103,7 @@ empty string."
 (defun cheat-sh-search-topic (topic thing)
   "Search TOPIC for THING on cheat.sh and display the result."
   (interactive
-   (list (completing-read "Topic: " (cheat-sh-sheet-list))
+   (list (cheat-sh-read "Topic: ")
          (read-string "Search: ")))
   (cheat-sh (concat topic "/~" thing)))
 
