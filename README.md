@@ -1,3 +1,6 @@
+[![MELPA Stable](https://stable.melpa.org/packages/cheat-sh-badge.svg)](https://stable.melpa.org/#/cheat-sh)
+[![MELPA](https://melpa.org/packages/cheat-sh-badge.svg)](https://melpa.org/#/cheat-sh)
+
 # cheat-sh.el
 
 Interact with [cheat.sh](http://cheat.sh/).
