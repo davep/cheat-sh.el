@@ -18,6 +18,15 @@
 
 ;;; Code:
 
+(defgroup cheat-sh nil
+  "Interact with cheat.sh."
+  :group 'docs)
+
+(defface cheat-sh-caption
+  '((t :inherit (bold font-lock-function-name-face)))
+  "Face used on captions in the cheat-sh output window."
+  :group 'cheat-sh)
+
 (defconst cheat-sh-url "http://cheat.sh/%s?T"
   "URL for cheat.sh.")
 
@@ -54,6 +63,14 @@ based of the sheets that are available on cheat.sh."
                    (or cheat-sh-sheet-list
                        (setq cheat-sh-sheet-list (split-string (cheat-sh-get ":list") "\n")))))
 
+(defun cheat-sh-decorate-results (buffer)
+  "Decorate BUFFER with properties to highlight results."
+  (with-current-buffer buffer
+    (save-excursion
+      (setf (point) (point-min))
+      (while (search-forward-regexp "^\\(#.*\\)$" nil t)
+        (replace-match (propertize (match-string 1) 'font-lock-face 'cheat-sh-caption) nil t)))))
+
 ;;;###autoload
 (defun cheat-sh (thing)
   "Look up THING on cheat.sh and display the result."
@@ -61,7 +78,8 @@ based of the sheets that are available on cheat.sh."
   (let ((result (cheat-sh-get thing)))
     (if result
         (with-help-window "*cheat.sh*"
-          (princ result))
+          (princ result)
+          (cheat-sh-decorate-results standard-output))
       (error "Can't find anything for %s on cheat.sh" thing))))
 
 ;;;###autoload
