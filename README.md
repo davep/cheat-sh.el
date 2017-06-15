@@ -15,4 +15,4 @@ on [cheat.sh](http://cheat.sh/).
 Here's an example of `cheat-sh.el` in action in a terminal instance of
 Emacs:
 
-[![asciicast](https://asciinema.org/a/123734.png)](https://asciinema.org/a/123734)
+[![asciicast](https://asciinema.org/a/3xvqwrsu9g4taj5w526sb2t35.png)](https://asciinema.org/a/3xvqwrsu9g4taj5w526sb2t35)
