@@ -59,7 +59,7 @@ text.")
   "List of all available sheets.")
 
 (defvar cheat-sh-sheet-list-acquired nil
-  "The time when `cheat-sh-sheet-list' was populated.")
+  "The time when variable `cheat-sh-sheet-list' was populated.")
 
 (defun cheat-sh-sheet-list-cache ()
   "Return the list of sheets.
