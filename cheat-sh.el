@@ -68,7 +68,6 @@ The list is cached in memory, and is considered \"stale\" and is
 refreshed after `cheat-sh-list-timeout' seconds."
   (when (and cheat-sh-sheet-list-acquired
              (> (- (time-to-seconds) cheat-sh-sheet-list-acquired) cheat-sh-list-timeout))
-    (message "Making list stale")
     (setq cheat-sh-sheet-list nil))
   (or cheat-sh-sheet-list
       (progn
