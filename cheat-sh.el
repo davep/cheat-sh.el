@@ -22,6 +22,11 @@
   "Interact with cheat.sh."
   :group 'docs)
 
+(defface cheat-sh-section
+  '((t :inherit (bold font-lock-doc-face)))
+  "Face used on sections in a cheat-sh output window."
+  :group 'cheat-sh)
+
 (defface cheat-sh-caption
   '((t :inherit (bold font-lock-function-name-face)))
   "Face used on captions in the cheat-sh output window."
@@ -82,13 +87,18 @@ cheat-sh.el to get the item to look up. It provides completion
 based of the sheets that are available on cheat.sh."
   (completing-read prompt (cheat-sh-sheet-list-cache)))
 
-(defun cheat-sh-decorate-results (buffer)
-  "Decorate BUFFER with properties to highlight results."
+(defun cheat-sh-decorate-all (buffer regexp face)
+  "Decorate BUFFER, finding REGEXP and setting face to FACE."
   (with-current-buffer buffer
     (save-excursion
       (setf (point) (point-min))
-      (while (search-forward-regexp "^\\(#.*\\)$" nil t)
-        (replace-match (propertize (match-string 1) 'font-lock-face 'cheat-sh-caption) nil t)))))
+      (while (search-forward-regexp regexp nil t)
+        (replace-match (propertize (match-string 1) 'font-lock-face face) nil t)))))
+
+(defun cheat-sh-decorate-results (buffer)
+  "Decorate BUFFER with properties to highlight results."
+  (cheat-sh-decorate-all buffer "^\\(\\[.*\\]\\)$" 'cheat-sh-section)
+  (cheat-sh-decorate-all buffer "^\\(#.*\\)$"      'cheat-sh-caption))
 
 ;;;###autoload
 (defun cheat-sh (thing)
