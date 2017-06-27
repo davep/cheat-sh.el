@@ -55,12 +55,13 @@ text.")
 
 (defun cheat-sh-get (thing)
   "Get THING from cheat.sh."
-  (with-current-buffer
-      (let ((url-request-extra-headers `(("User-Agent" . ,cheat-sh-user-agent))))
-        (url-retrieve-synchronously (format cheat-sh-url (url-hexify-string thing)) t t))
-    (setf (point) (point-min))
-    (when (search-forward-regexp "^$" nil t)
-      (buffer-substring (point) (point-max)))))
+  (let* ((url-request-extra-headers `(("User-Agent" . ,cheat-sh-user-agent)))
+         (buffer (url-retrieve-synchronously (format cheat-sh-url (url-hexify-string thing)) t t)))
+    (when buffer
+      (with-current-buffer buffer
+        (setf (point) (point-min))
+        (when (search-forward-regexp "^$" nil t)
+          (buffer-substring (point) (point-max)))))))
 
 (defvar cheat-sh-sheet-list nil
   "List of all available sheets.")
