@@ -77,9 +77,10 @@ refreshed after `cheat-sh-list-timeout' seconds."
              (> (- (time-to-seconds) cheat-sh-sheet-list-acquired) cheat-sh-list-timeout))
     (setq cheat-sh-sheet-list nil))
   (or cheat-sh-sheet-list
-      (progn
-        (setq cheat-sh-sheet-list-acquired (time-to-seconds))
-        (setq cheat-sh-sheet-list (split-string (cheat-sh-get ":list") "\n")))))
+      (let ((list (cheat-sh-get ":list")))
+        (when list
+          (setq cheat-sh-sheet-list-acquired (time-to-seconds))
+          (setq cheat-sh-sheet-list (split-string list "\n"))))))
 
 (defun cheat-sh-read (prompt)
   "Read input from the user, showing PROMPT to prompt them.
