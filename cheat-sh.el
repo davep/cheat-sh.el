@@ -101,8 +101,11 @@ based of the sheets that are available on cheat.sh."
 
 (defun cheat-sh-decorate-results (buffer)
   "Decorate BUFFER with properties to highlight results."
+  ;; "[Search section]"
   (cheat-sh-decorate-all buffer "^\\(\\[.*\\]\\)$"        'cheat-sh-section)
+  ;; "# Result caption"
   (cheat-sh-decorate-all buffer "^\\(#.*\\)$"             'cheat-sh-caption)
+  ;; "cheat-sh help caption:"
   (cheat-sh-decorate-all buffer "^\\([^[:space:]].*:\\)$" 'cheat-sh-caption))
 
 ;;;###autoload
