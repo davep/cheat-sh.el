@@ -18,6 +18,8 @@
 
 ;;; Code:
 
+(require 'url-vars)
+
 (defgroup cheat-sh nil
   "Interact with cheat.sh."
   :group 'docs)
