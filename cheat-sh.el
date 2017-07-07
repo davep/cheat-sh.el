@@ -61,7 +61,7 @@ text.")
       (with-current-buffer buffer
         (setf (point) (point-min))
         (when (search-forward-regexp "^$" nil t)
-          (buffer-substring (point) (point-max)))))))
+          (buffer-substring (1+ (point)) (point-max)))))))
 
 (defvar cheat-sh-sheet-list nil
   "List of all available sheets.")
