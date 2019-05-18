@@ -1,5 +1,5 @@
 ;;; cheat-sh.el --- Interact with cheat.sh  -*- lexical-binding: t -*-
-;; Copyright 2017 by Dave Pearson <davep@davep.org>
+;; Copyright 2017-2019 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
 ;; Version: 1.7
