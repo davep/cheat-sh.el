@@ -48,6 +48,15 @@
   :type 'integer
   :group 'cheat-sh)
 
+(defcustom cheat-sh-topic-mode-map
+  '((emacs-lisp-mode . "elisp")
+    (python-mode . "python"))
+  "Map of Emacs major mode names to cheat.sh topic names."
+  :type '(repeat (cons
+                  (symbol :tag "Major mode")
+                  (string :tag "cheat.sh topic")))
+  :group 'cheat-sh)
+
 (defconst cheat-sh-url "http://cheat.sh/%s?T"
   "URL for cheat.sh.")
 
@@ -93,13 +102,13 @@ refreshed after `cheat-sh-list-timeout' seconds."
           (setq cheat-sh-sheet-list-acquired (time-to-seconds))
           (setq cheat-sh-sheet-list (split-string list "\n"))))))
 
-(defun cheat-sh-read (prompt)
+(defun cheat-sh-read (prompt &optional initial)
   "Read input from the user, showing PROMPT to prompt them.
 
 This function is used by some `interactive' functions in
 cheat-sh.el to get the item to look up. It provides completion
 based of the sheets that are available on cheat.sh."
-  (completing-read prompt (cheat-sh-sheet-list-cache)))
+  (completing-read prompt (cheat-sh-sheet-list-cache) nil nil initial))
 
 (defun cheat-sh-decorate-all (buffer regexp face)
   "Decorate BUFFER, finding REGEXP and setting face to FACE."
@@ -164,11 +173,15 @@ empty string."
   (interactive "sSearch: ")
   (cheat-sh (concat "~" thing)))
 
+(defun cheat-sh-guess-topic ()
+  "Attempt to guess a topic to search."
+  (cdr (assoc major-mode cheat-sh-topic-mode-map)))
+
 ;;;###autoload
 (defun cheat-sh-search-topic (topic thing)
   "Search TOPIC for THING on cheat.sh and display the result."
   (interactive
-   (list (cheat-sh-read "Topic: ")
+   (list (cheat-sh-read "Topic: " (cheat-sh-guess-topic))
          (read-string "Search: ")))
   (cheat-sh (concat topic "/~" thing)))
 
