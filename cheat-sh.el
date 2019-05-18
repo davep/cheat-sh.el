@@ -58,6 +58,7 @@
     (emacs-lisp-mode . "elisp")
     (fish-mode . "fish")
     (go-mode . "go")
+    (haskell-mode . "haskell")
     (hy-mode . "hy")
     (java-mode . "java")
     (js-jsx-mode . "javascript")
