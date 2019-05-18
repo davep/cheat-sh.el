@@ -49,7 +49,13 @@
   :group 'cheat-sh)
 
 (defcustom cheat-sh-topic-mode-map
-  '((emacs-lisp-mode . "elisp")
+  '((awk-mode . "awk")
+    (c-mode . "c")
+    (c++-mode . "cpp")
+    (go-mode . "go")
+    (clojure-mode . "clojure")
+    (emacs-lisp-mode . "elisp")
+    (sh-mode . "bash")
     (python-mode . "python"))
   "Map of Emacs major mode names to cheat.sh topic names."
   :type '(repeat (cons
