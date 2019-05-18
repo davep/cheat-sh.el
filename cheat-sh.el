@@ -126,7 +126,10 @@ refreshed after `cheat-sh-list-timeout' seconds."
 
 This function is used by some `interactive' functions in
 cheat-sh.el to get the item to look up. It provides completion
-based of the sheets that are available on cheat.sh."
+based of the sheets that are available on cheat.sh.
+
+If a value is passed for INITIAL it is used as the initial
+input."
   (completing-read prompt (cheat-sh-sheet-list-cache) nil nil initial))
 
 (defun cheat-sh-decorate-all (buffer regexp face)
