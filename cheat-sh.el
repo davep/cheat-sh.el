@@ -198,7 +198,7 @@ empty string."
 
 (defun cheat-sh-guess-topic ()
   "Attempt to guess a topic to search."
-  (cdr (assoc major-mode cheat-sh-topic-mode-map)))
+  (alist-get major-mode cheat-sh-topic-mode-map))
 
 ;;;###autoload
 (defun cheat-sh-search-topic (topic thing)
