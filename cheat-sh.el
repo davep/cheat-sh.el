@@ -206,7 +206,7 @@ empty string."
   (interactive
    (list (cheat-sh-read "Topic: " (cheat-sh-guess-topic))
          (read-string "Search: ")))
-  (cheat-sh (concat topic "/~" thing)))
+  (cheat-sh (concat topic "/" thing)))
 
 (provide 'cheat-sh)
 
