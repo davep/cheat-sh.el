@@ -101,22 +101,27 @@ cheat-sh.el to get the item to look up. It provides completion
 based of the sheets that are available on cheat.sh."
   (completing-read prompt (cheat-sh-sheet-list-cache)))
 
-(defun cheat-sh-decorate-all (buffer regexp face)
-  "Decorate BUFFER, finding REGEXP and setting face to FACE."
-  (with-current-buffer buffer
-    (save-excursion
-      (setf (point) (point-min))
-      (while (search-forward-regexp regexp nil t)
-        (replace-match (propertize (match-string 1) 'font-lock-face face) nil t)))))
+;;; Major mode
 
-(defun cheat-sh-decorate-results (buffer)
-  "Decorate BUFFER with properties to highlight results."
-  ;; "[Search section]"
-  (cheat-sh-decorate-all buffer "^\\(\\[.*\\]\\)$"        'cheat-sh-section)
-  ;; "# Result caption"
-  (cheat-sh-decorate-all buffer "^\\(#.*\\)$"             'cheat-sh-caption)
-  ;; "cheat-sh help caption:"
-  (cheat-sh-decorate-all buffer "^\\([^[:space:]].*:\\)$" 'cheat-sh-caption))
+(defconst cheat-sh-font-lock-keywords
+  '(;; "[Search section]"
+    ("^\\(\\[.*\\]\\)$"        . 'cheat-sh-section)
+    ;; "# Result caption"
+    ("^\\(#.*\\)$"             . 'cheat-sh-caption)
+    ;; "cheat-sh help caption:"
+    ("^\\([^[:space:]].*:\\)$" . 'cheat-sh-caption)))
+
+(define-derived-mode cheat-sh-mode special-mode "Cheat"
+  "Major mode for viewing results from cheat-sh.
+Commands:
+\\{cheat-sh-mode-map}"
+  :abbrev-table nil
+  (setq font-lock-defaults (list cheat-sh-font-lock-keywords)))
+
+;; used by `with-temp-buffer-window'
+(defun cheat-sh-mode-setup ()
+  (cheat-sh-mode)
+  (setq buffer-read-only nil))
 
 ;;;###autoload
 (defun cheat-sh (thing)
@@ -124,9 +129,10 @@ based of the sheets that are available on cheat.sh."
   (interactive (list (cheat-sh-read "Lookup: ")))
   (let ((result (cheat-sh-get thing)))
     (if result
-        (with-help-window "*cheat.sh*"
-          (princ result)
-          (cheat-sh-decorate-results standard-output))
+        (let ((temp-buffer-window-setup-hook
+               (cons 'cheat-sh-mode-setup temp-buffer-window-show-hook)))
+          (with-temp-buffer-window "*cheat.sh*" nil 'help-window-setup
+            (princ result)))
       (error "Can't find anything for %s on cheat.sh" thing))))
 
 ;;;###autoload
