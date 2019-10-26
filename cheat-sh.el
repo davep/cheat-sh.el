@@ -150,8 +150,8 @@ Commands:
   :abbrev-table nil
   (setq font-lock-defaults (list cheat-sh-font-lock-keywords)))
 
-;; used by `with-temp-buffer-window'
 (defun cheat-sh-mode-setup ()
+  "Set up the cheat mode for the current buffer."
   (cheat-sh-mode)
   (setq buffer-read-only nil))
 
