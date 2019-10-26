@@ -5,7 +5,7 @@
 ;; Version: 1.7
 ;; Keywords: docs, help
 ;; URL: https://github.com/davep/cheat-sh.el
-;; Package-Requires: ((emacs "24"))
+;; Package-Requires: ((emacs "25.1"))
 
 ;; This program is free software: you can redistribute it and/or modify it
 ;; under the terms of the GNU General Public License as published by the
