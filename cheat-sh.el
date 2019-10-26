@@ -96,11 +96,13 @@ text.")
   (let* ((url-request-extra-headers `(("User-Agent" . ,cheat-sh-user-agent)))
          (buffer (url-retrieve-synchronously (format cheat-sh-url (url-hexify-string thing)) t t)))
     (when buffer
-      (with-current-buffer buffer
-        (set-buffer-multibyte t)
-        (setf (point) (point-min))
-        (when (search-forward-regexp "^$" nil t)
-          (buffer-substring (1+ (point)) (point-max)))))))
+      (unwind-protect
+          (with-current-buffer buffer
+            (set-buffer-multibyte t)
+            (setf (point) (point-min))
+            (when (search-forward-regexp "^$" nil t)
+              (buffer-substring (1+ (point)) (point-max))))
+        (kill-buffer buffer)))))
 
 (defvar cheat-sh-sheet-list nil
   "List of all available sheets.")
