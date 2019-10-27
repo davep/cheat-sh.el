@@ -2,7 +2,7 @@
 ;; Copyright 2017-2019 by Dave Pearson <davep@davep.org>
 
 ;; Author: Dave Pearson <davep@davep.org>
-;; Version: 1.7
+;; Version: 1.8
 ;; Keywords: docs, help
 ;; URL: https://github.com/davep/cheat-sh.el
 ;; Package-Requires: ((emacs "25.1"))
