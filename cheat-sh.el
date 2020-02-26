@@ -202,7 +202,7 @@ empty string."
 (defun cheat-sh-search (thing)
   "Search for THING on cheat.sh and display the result."
   (interactive "sSearch: ")
-  (cheat-sh (concat "~" thing)))
+  (cheat-sh (concat "+" thing)))
 
 (defun cheat-sh-guess-topic ()
   "Attempt to guess a topic to search."
