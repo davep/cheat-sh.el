@@ -27,6 +27,7 @@
 
 ;;; Code:
 
+(require 'cl-lib)
 (require 'url-vars)
 
 (defgroup cheat-sh nil
